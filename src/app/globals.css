@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* CSS Variables for shadcn/ui - Light theme with white bg and #e81e25 logo-red primary */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 196 54% 17%; /* #143642 */
+    --card: 0 0% 100%;
+    --card-foreground: 196 54% 17%; /* #143642 */
+    --popover: 0 0% 100%;
+    --popover-foreground: 196 54% 17%; /* #143642 */
+    --primary: 358 81% 51%; /* #e81e25 red */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 358 81% 51%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Extend Tailwind theme with shadcn colors */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  /* Brand palette. Logo red (--primary) stays the accent; these fill the non-logo roles. */
+  --color-brand-dark: #143642; /* dark teal-slate for dark sections and overlays */
+  --color-brand-ink: #143642; /* headings and near-black text */
+  --color-brand-link: #0072bb; /* inline text links inside body copy */
+  --color-brand-success: #28502e; /* success and confirmation states */
+  --color-primary-deep: #c4121a; /* bottom of the red button gradient (white text 5.6:1) */
+  --color-brand-dark-hover: #1d4a5a; /* hover for teal secondary buttons */
+  --color-primary-on-dark: #ff5a5f; /* logo red lifted for icons on brand-dark (4.2:1); small text on dark uses white */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Accordion animations */
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+.animate-accordion-down {
+  animation: accordion-down 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-accordion-up {
+  animation: accordion-up 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Noise grain overlay; pointer-events-none, fixed, never on scrolling containers */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Scroll offset for the fixed header. Smooth scrolling itself is handled by Lenis (components/smooth-scroll.tsx). */
+html {
+  scroll-padding-top: 128px; /* fixed header ends ~112px from top */
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Light grey basemap for the service-area map */
+.cliffs-map-tiles {
+  filter: grayscale(1) brightness(1.06) contrast(0.88);
+}
+
+/* Leaflet map tooltip override */
+.cliffs-map-tooltip {
+  background: #143642;
+  border: 1px solid rgba(232, 30, 37, 0.35);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+.cliffs-map-tooltip::before {
+  border-top-color: rgba(232, 30, 37, 0.35) !important;
+}
+
+/* Skip to main content link (hidden until focused) */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 2px solid hsl(var(--primary));
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+}

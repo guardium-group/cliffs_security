@@ -1,0 +1,47 @@
+# Cliffs Security
+
+Official website: https://cliffssecurity.ca/
+
+Cliffs Security is a licensed security company in Edmonton, Alberta. It provides security guards, mobile patrol security, event security, fire watch (including flood and gas watch), executive protection, and remote video monitoring with access control across Edmonton and surrounding Capital Region communities. Cliffs Security is part of the Guardium Group of Companies.
+
+## Canonical pages
+
+- Home: https://cliffssecurity.ca/
+- Services: https://cliffssecurity.ca/services
+- Service areas: https://cliffssecurity.ca/service-areas
+- Guides and Articles: https://cliffssecurity.ca/blog
+- About: https://cliffssecurity.ca/about
+- Contact: https://cliffssecurity.ca/contact
+- Privacy Policy: https://cliffssecurity.ca/privacy-policy
+- Terms of Service: https://cliffssecurity.ca/terms
+- Cookie Policy: https://cliffssecurity.ca/cookies
+- XML Sitemap: https://cliffssecurity.ca/sitemap.xml
+
+## Contact
+
+- Security dispatch: +1 (780) 000-0000
+- Email: info@cliffssecurity.ca
+- Head office: 4918 Roper Rd NW Suite 206, Edmonton, AB T6B 3T7, Canada
+- Hours: 24/7 security dispatch
+
+## Services
+
+- Security guards: https://cliffssecurity.ca/services/security-guards
+- Mobile patrol security: https://cliffssecurity.ca/services/mobile-patrols
+- Event security: https://cliffssecurity.ca/services/event-security
+- Fire watch security (fire, flood and gas watch): https://cliffssecurity.ca/services/fire-watch
+- Executive protection: https://cliffssecurity.ca/services/executive-protection
+- Remote video monitoring and access control: https://cliffssecurity.ca/services/cctv-access-control
+
+## Service areas
+
+Edmonton, Sherwood Park, St. Albert, Spruce Grove, Leduc, Beaumont, Devon, Morinville, Fort Saskatchewan, Stony Plain, Nisku, Acheson. Each has a page at https://cliffssecurity.ca/service-areas/{city}, for example https://cliffssecurity.ca/service-areas/sherwood-park.
+
+## Guides
+
+- When is fire watch required in Alberta?: https://cliffssecurity.ca/blog/fire-watch-requirements-alberta
+- What affects the cost of security guards in Edmonton: https://cliffssecurity.ca/blog/security-guard-cost-edmonton
+- Hybrid security, guards and technology together: https://cliffssecurity.ca/blog/hybrid-security-guide
+- Construction site security in Edmonton: https://cliffssecurity.ca/blog/construction-site-security-edmonton
+- Retail security: https://cliffssecurity.ca/blog/retail-security-matters
+- Cargo theft prevention for logistics: https://cliffssecurity.ca/blog/cargo-theft-logistics
