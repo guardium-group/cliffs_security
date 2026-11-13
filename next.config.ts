@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
   // Services renamed to match search terms (SEO pass, 2026-11-10). Keep old URLs working.
   async redirects() {
     return [
+      ...["edmonton", "sherwood-park", "st-albert", "spruce-grove", "leduc", "beaumont", "devon", "morinville", "fort-saskatchewan", "stony-plain", "nisku", "acheson"].map((slug) => ({ source: `/service-areas/${slug}`, destination: "/service-areas", permanent: true })),
       { source: "/services/static-guards", destination: "/services/security-guards", permanent: true },
       { source: "/services/private-protection", destination: "/services/executive-protection", permanent: true },
     ];

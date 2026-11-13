@@ -81,7 +81,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Fire, flood and gas watch",
         body: [
-          "The same approach applies when other systems are offline. A flood watch covers buildings with damaged plumbing or heating during cold weather, and a gas watch covers sites where gas detection is out of service. Cliffs Security provides [fire watch security](/services/fire-watch), including flood and gas watch, in Edmonton, [Fort Saskatchewan](/service-areas/fort-saskatchewan), [Sherwood Park](/service-areas/sherwood-park) and across the Capital Region.",
+          "The same approach applies when other systems are offline. A flood watch covers buildings with damaged plumbing or heating during cold weather, and a gas watch covers sites where gas detection is out of service. Cliffs Security provides [fire watch security](/services/fire-watch), including flood and gas watch, in Edmonton, [Fort Saskatchewan](/service-areas#fort-saskatchewan), [Sherwood Park](/service-areas#sherwood-park) and across the Capital Region.",
         ],
       },
     ],

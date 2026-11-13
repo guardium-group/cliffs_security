@@ -61,7 +61,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     .slice(0, 4);
   const cityLinks = serviceAreas.map((area) => ({
     label: area.name,
-    href: `/service-areas/${area.slug}`,
+    href: `/service-areas#${area.slug}`,
   }));
 
   return (

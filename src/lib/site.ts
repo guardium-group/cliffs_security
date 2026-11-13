@@ -72,5 +72,5 @@ export function areaSlug(area: string): string {
 
 export const serviceAreaLinks = siteConfig.serviceArea.map((area) => ({
   name: area,
-  href: `/service-areas/${areaSlug(area)}`,
+  href: `/service-areas#${areaSlug(area)}`,
 }));

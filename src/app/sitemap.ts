@@ -1,14 +1,13 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog";
 import { services } from "@/lib/services";
-import { serviceAreas } from "@/lib/service-areas";
 import { siteConfig } from "@/lib/site";
 
 // Update a date when that page's content changes. Legal dates match each page's "Last updated" line.
 const STATIC_DATES: Record<string, string> = {
   "":               "2026-11-10",
   "/services":      "2026-11-10",
-  "/service-areas": "2026-11-10",
+  "/service-areas": "2026-11-13",
   "/blog":          "2026-11-10",
   "/about":         "2026-11-10",
   "/contact":       "2026-11-10",
@@ -47,13 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const areaRoutes = serviceAreas.map((a) => ({
-    url: `${siteConfig.url}/service-areas/${a.slug}`,
-    lastModified: CONTENT_DATE,
-    changeFrequency: "monthly" as const,
-    priority: 0.85,
-  }));
-
   const blogRoutes = blogPosts.map((post) => ({
     url: `${siteConfig.url}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt),
@@ -62,5 +54,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${siteConfig.url}${post.image}`],
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...areaRoutes, ...blogRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes];
 }
