@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/social-icons";
 import { siteConfig, serviceAreaLinks, socialLinks as configuredSocialLinks } from "@/lib/site";
 import { services } from "@/lib/services";
+import { industries } from "@/lib/industries";
 
 const socialIcons = {
   facebook: { name: "Facebook", icon: FacebookIcon },
@@ -32,6 +33,7 @@ const companyLinks = [
   { name: "Services", href: "/services" },
   { name: "Service Areas", href: "/service-areas" },
   { name: "Articles", href: "/blog" },
+  { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -52,7 +54,7 @@ export function Footer() {
       <div className="relative container mx-auto px-5 sm:px-6 max-w-7xl">
 
         {/* ── Main grid ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pt-16 pb-12 border-b border-white/[0.08]">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pt-16 pb-12 border-b border-white/[0.08]">
 
           {/* Brand column */}
           <div className="col-span-2 lg:col-span-1 flex flex-col gap-6">
@@ -109,6 +111,14 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-white/60 font-mono text-xs uppercase tracking-[0.2em] mb-5">Industries</p>
+            <ul className="space-y-3">
+              <li><Link href="/industries" className="text-white/70 hover:text-white text-sm">All industries</Link></li>
+              {industries.map(item => <li key={item.slug}><Link href={`/industries/${item.slug}`} className="text-white/70 hover:text-white text-sm">{item.name}</Link></li>)}
             </ul>
           </div>
 

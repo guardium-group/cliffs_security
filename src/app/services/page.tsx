@@ -1,50 +1,5 @@
-import type { Metadata } from "next";
+import { ContentPage, ContentCard } from "@/components/content-page";
+import { services, serviceCategories } from "@/lib/services";
 import { pageMetadata } from "@/lib/seo";
-import { BreadcrumbHero } from "@/components/breadcrumb-hero";
-import { ServicesSection } from "@/components/services-section";
-import { ServiceSpotlights } from "@/components/service-spotlights";
-import { HowItWorks } from "@/components/how-it-works";
-import { faqs, ServiceFAQ } from "@/components/service-faq";
-import { JsonLd } from "@/components/seo/json-ld";
-import { siteConfig, SHOW_TESTIMONIALS } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/structured-data";
-import { Testimonials } from "@/components/testimonials";
-import { ServiceAreas } from "@/components/service-areas";
-import { BlogPreview } from "@/components/blog-preview";
-import { CTACarousel } from "@/components/cta-carousel";
-
-export const metadata: Metadata = pageMetadata({
-  title: "Security Services in Edmonton",
-  description:
-    "Security services in Edmonton: licensed security guards, mobile patrols, event security, fire watch, executive protection and remote video monitoring.",
-  path: "/services",
-});
-
-export default function ServicesPage() {
-  return (
-    <>
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", url: siteConfig.url },
-          { name: "Services", url: `${siteConfig.url}/services` },
-        ])}
-      />
-      <JsonLd data={faqJsonLd(faqs)} />
-      <BreadcrumbHero
-        title="Security Services in Edmonton"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services" },
-        ]}
-      />
-      <ServicesSection />
-      <ServiceSpotlights />
-      <ServiceAreas />
-      <HowItWorks />
-      <ServiceFAQ />
-      {SHOW_TESTIMONIALS && <Testimonials />}
-      <BlogPreview />
-      <CTACarousel />
-    </>
-  );
-}
+export const metadata = pageMetadata({ title: "Security Services in Edmonton", description: "Explore physical security and security systems for properties across Edmonton and the Capital Region.", path: "/services" });
+export default function ServicesPage() { return <ContentPage eyebrow="Our services" title="Security built around your needs" intro="Explore physical security and security systems for your property, people and operations.">{serviceCategories.map(category => <section key={category.name} className="mb-16 last:mb-0"><h2 className="mb-6 text-3xl font-bold text-brand-ink">{category.name}</h2><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{category.slugs.map(slug => { const service = services.find(item => item.slug === slug); return service ? <ContentCard key={slug} href={`/services/${slug}`} title={service.name} text={service.shortDescription} /> : null; })}</div></section>)}</ContentPage>; }

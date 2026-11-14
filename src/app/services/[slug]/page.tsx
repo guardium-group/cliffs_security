@@ -61,7 +61,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     .slice(0, 4);
   const cityLinks = serviceAreas.map((area) => ({
     label: area.name,
-    href: `/service-areas/${area.slug}`,
+    href: `/service-areas#${area.slug}`,
   }));
 
   return (
@@ -116,7 +116,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
+              className={buttonVariants({ className: "gap-2" })}
             >
               <Phone className="h-4 w-4" />
               {siteConfig.phone.display}

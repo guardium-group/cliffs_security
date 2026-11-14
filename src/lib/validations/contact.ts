@@ -7,6 +7,15 @@ export const serviceOptions = [
   "Fire, Flood & Gas Watches",
   "Executive Protection",
   "Video Monitoring & Access Control",
+  "Tactical Security",
+  "Commercial Security",
+  "Residential Security",
+  "Concierge Security",
+  "Access Control",
+  "Intrusion Alarms",
+  "Security Cameras",
+  "Alarm Monitoring",
+  "Remote Camera Monitoring",
   "Other / Not Sure",
 ] as const;
 

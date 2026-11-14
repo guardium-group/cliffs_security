@@ -452,7 +452,3 @@ const seeds: AreaSeed[] = [
 ];
 
 export const serviceAreas: AreaData[] = seeds.map(buildArea);
-
-export function getArea(slug: string): AreaData | undefined {
-  return serviceAreas.find((a) => a.slug === slug);
-}

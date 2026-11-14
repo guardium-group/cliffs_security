@@ -40,7 +40,7 @@ export function ServiceAreas() {
                 return (
                   <Link
                     key={area}
-                    href={`/service-areas/${slug}`}
+                    href={`/service-areas#${slug}`}
                     className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-500 bg-gray-50 border border-gray-200 hover:border-primary/40 hover:text-brand-ink rounded-full px-3.5 py-2.5 transition-colors duration-200"
                   >
                     <MapPin className="h-2.5 w-2.5 text-primary/70 shrink-0" />

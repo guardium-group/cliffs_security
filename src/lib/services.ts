@@ -35,7 +35,7 @@ export interface ServiceData {
   relatedSlugs: string[];
 }
 
-export const services: ServiceData[] = [
+const existingServices: ServiceData[] = [
   {
     slug: "security-guards",
     name: "Security guards",
@@ -524,6 +524,42 @@ export const services: ServiceData[] = [
     relatedSlugs: ["mobile-patrols", "security-guards", "fire-watch"],
   },
 ];
+
+
+type NewService = { slug: string; name: string; summary: string; details: string; considerations: string[] };
+const additionalServices: NewService[] = [
+  { slug: "tactical-security", name: "Tactical security", summary: "Security support for sites with elevated or changing risks.", details: "A tactical security plan starts with the nature of the site, the people present and the situations officers may encounter. Discuss the scope and staffing requirements with our team before assigning coverage.", considerations: ["Site-specific risk assessment and post orders", "Incident communication and escalation", "Visible presence tailored to the environment"] },
+  { slug: "commercial-security", name: "Commercial security", summary: "Security planning for commercial buildings and business premises.", details: "Commercial properties have different access patterns throughout the day. A plan can address opening and closing, visitors, deliveries and after-hours checks around the needs of the building.", considerations: ["Visitor and contractor access", "Common-area and perimeter checks", "Opening and closing procedures"] },
+  { slug: "residential-security", name: "Residential security", summary: "A welcoming security presence for residential properties.", details: "Residential security balances access management and incident response with the experience of residents and guests. Coverage can be discussed with property management to fit the building's routines.", considerations: ["Resident and visitor access", "Common-area observations", "Property-specific incident procedures"] },
+  { slug: "concierge-security", name: "Concierge security", summary: "Front-desk service combined with a security-minded presence.", details: "A concierge security role brings together a helpful reception experience and the building's agreed access procedures. The right duties depend on the property and its residents or tenants.", considerations: ["Welcoming residents, guests and contractors", "Visitor and delivery coordination", "Reporting concerns to property management"] },
+  { slug: "access-control", name: "Access control", summary: "Manage how people enter and move through a property.", details: "Access control can help property managers organise entry points, credentials and visitor procedures. Discuss the building, its users and existing equipment to identify a suitable approach.", considerations: ["Doors and controlled entry points", "Credentials and visitor procedures", "Integration with existing site operations"] },
+  { slug: "intrusion-alarms", name: "Intrusion alarms", summary: "Alarm solutions for unauthorised entry and site security.", details: "Intrusion detection can support a property's security plan when premises are closed or areas are restricted. The design should reflect entrances, occupancy patterns and the response arrangements for an alarm.", considerations: ["Entry points and detection zones", "Arming schedules and authorised users", "Alarm notification and response procedures"] },
+  { slug: "security-cameras", name: "Security cameras", summary: "Camera coverage designed around your property and its risks.", details: "A camera plan starts with the areas that need visibility, lighting, retention needs and the privacy of people on site. We can discuss how cameras fit alongside officers, access control and monitoring.", considerations: ["Entrances, common areas and perimeter visibility", "Lighting and camera placement", "Privacy and recording requirements"] },
+  { slug: "alarm-monitoring", name: "Alarm monitoring", summary: "A defined process for receiving and responding to alarm signals.", details: "Alarm monitoring arrangements should identify who receives an alert, how it is assessed and who is contacted. We can discuss the right response plan for your property and equipment.", considerations: ["Notification and contact lists", "Escalation and keyholder arrangements", "Site-specific response procedures"] },
+  { slug: "remote-camera-monitoring", name: "Remote camera monitoring", summary: "Remote video monitoring as part of a layered security plan.", details: "Remote monitoring can complement on-site personnel and physical safeguards. Discuss the camera coverage, monitoring schedule and response expectations that suit your site.", considerations: ["Monitoring schedules and coverage", "Incident review and escalation", "Coordination with on-site security"] },
+];
+
+function createAdditionalService(item: NewService): ServiceData {
+  const description = `${item.name} in Edmonton and the Capital Region. Discuss your property and security needs with Cliffs Security.`;
+  return {
+    slug: item.slug, name: item.name, shortName: item.name,
+    shortDescription: item.summary, title: `${item.name} in Edmonton`, metaDescription: description,
+    heroImage: "/images/security/hero-team.webp", heroImageAlt: "Security personnel at work",
+    intro: item.summary + " " + item.details,
+    spotlight: { title: `A practical approach to ${item.name.toLowerCase()}`, description: item.details, benefits: item.considerations },
+    sections: [
+      { heading: `Planning ${item.name.toLowerCase()} for your site`, body: [item.details], list: item.considerations },
+      { heading: "A plan built around your property", body: ["Tell us about your location, operating hours and priorities. We can discuss coverage options and a scope of work suited to your site."] },
+    ],
+    faqs: [{ q: `How do I discuss ${item.name.toLowerCase()} for my property?`, a: "Contact Cliffs Security with your location, operating hours and the concerns you would like to address. We can discuss your requirements and available options." }],
+    keywords: [], relatedSlugs: ["security-guards", "mobile-patrols", "cctv-access-control"],
+  };
+}
+export const services: ServiceData[] = [...existingServices, ...additionalServices.map(createAdditionalService)];
+export const serviceCategories = [
+  { name: "Physical Security", slugs: ["security-guards", "event-security", "mobile-patrols", "tactical-security", "commercial-security", "residential-security", "concierge-security", "fire-watch", "executive-protection"] },
+  { name: "Security Systems", slugs: ["access-control", "intrusion-alarms", "security-cameras", "alarm-monitoring", "remote-camera-monitoring", "cctv-access-control"] },
+] as const;
 
 export function getService(slug: string): ServiceData | undefined {
   return services.find((s) => s.slug === slug);

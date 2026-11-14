@@ -4,19 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-200 motion-safe:transition-[color,background-color,border-color,translate,scale] motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        // Logo red with depth: top-to-bottom gradient, red glow, lift on hover.
         default:
-          "bg-linear-to-b from-primary to-primary-deep text-primary-foreground font-semibold shadow-[0_8px_20px_-8px_rgba(232,30,37,0.6)] hover:brightness-110 hover:shadow-[0_12px_28px_-8px_rgba(232,30,37,0.7)] motion-safe:hover:-translate-y-0.5 active:translate-y-0 active:brightness-95",
-        // Teal-slate, the partner button on light sections.
+          "bg-primary text-primary-foreground font-semibold hover:bg-primary-deep active:bg-primary-deep",
         secondary:
-          "bg-brand-dark text-white font-semibold shadow-[0_8px_20px_-10px_rgba(20,54,66,0.55)] hover:bg-brand-dark-hover hover:shadow-[0_12px_28px_-10px_rgba(20,54,66,0.6)] motion-safe:hover:-translate-y-0.5 active:translate-y-0",
-        // Solid white, the partner button on dark sections and photos.
+          "bg-brand-dark text-white font-semibold hover:bg-brand-dark-hover",
         inverse:
-          "bg-white text-brand-ink font-semibold shadow-[0_8px_20px_-10px_rgba(0,0,0,0.45)] hover:bg-white/90 motion-safe:hover:-translate-y-0.5 active:translate-y-0",
+          "bg-white text-brand-ink font-semibold hover:bg-gray-100",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         outline:

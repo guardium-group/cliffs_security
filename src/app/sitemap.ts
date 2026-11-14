@@ -1,14 +1,17 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog";
 import { services } from "@/lib/services";
-import { serviceAreas } from "@/lib/service-areas";
+import { industries } from "@/lib/industries";
+import { jobs } from "@/lib/jobs";
 import { siteConfig } from "@/lib/site";
 
 // Update a date when that page's content changes. Legal dates match each page's "Last updated" line.
 const STATIC_DATES: Record<string, string> = {
   "":               "2026-11-10",
   "/services":      "2026-11-10",
-  "/service-areas": "2026-11-10",
+  "/service-areas": "2026-11-13",
+  "/industries":    "2026-11-13",
+  "/careers":       "2026-11-13",
   "/blog":          "2026-11-10",
   "/about":         "2026-11-10",
   "/contact":       "2026-11-10",
@@ -17,13 +20,12 @@ const STATIC_DATES: Record<string, string> = {
   "/cookies":       "2026-10-29",
 };
 
-/** Service and city pages were last rewritten in the SEO pass on this date. */
-const CONTENT_DATE = new Date("2026-11-10");
-
 const routes = [
   { path: "", changeFrequency: "weekly", priority: 1 },
   { path: "/services", changeFrequency: "monthly", priority: 0.9 },
   { path: "/service-areas", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/careers", changeFrequency: "weekly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.9 },
@@ -42,14 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const serviceRoutes = services.map((s) => ({
     url: `${siteConfig.url}/services/${s.slug}`,
-    lastModified: CONTENT_DATE,
-    changeFrequency: "monthly" as const,
-    priority: 0.85,
-  }));
-
-  const areaRoutes = serviceAreas.map((a) => ({
-    url: `${siteConfig.url}/service-areas/${a.slug}`,
-    lastModified: CONTENT_DATE,
+    lastModified: new Date("2026-11-13"),
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
@@ -62,5 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${siteConfig.url}${post.image}`],
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...areaRoutes, ...blogRoutes];
+  const industryRoutes = industries.map(item => ({ url: `${siteConfig.url}/industries/${item.slug}`, lastModified: new Date("2026-11-13") }));
+  const jobRoutes = jobs.filter(job => job.active).map(job => ({ url: `${siteConfig.url}/careers/${job.slug}`, lastModified: new Date(job.datePosted) }));
+  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...jobRoutes, ...blogRoutes];
 }

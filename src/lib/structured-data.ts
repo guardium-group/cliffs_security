@@ -124,34 +124,6 @@ export function serviceJsonLd(service: ServiceData) {
   };
 }
 
-/**
- * City page: the business's security services in one city.
- * References the single business by @id instead of duplicating it, so search engines
- * don't read each city page as a separate (fake) location.
- */
-export function cityServiceJsonLd(city: { name: string; slug: string; description: string }) {
-  const url = `${siteConfig.url}/service-areas/${city.slug}`;
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${url}#service`,
-    name: `Security services in ${city.name}`,
-    serviceType: "Security guard and patrol services",
-    description: city.description,
-    url,
-    provider: { "@id": BUSINESS_ID },
-    areaServed: { "@type": "City", name: city.name },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: `Security services in ${city.name}`,
-      itemListElement: siteConfig.services.map((service) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name: service },
-      })),
-    },
-  };
-}
-
 export function blogPostingJsonLd(post: BlogPost) {
   const articleUrl = `${siteConfig.url}/blog/${post.slug}`;
 
