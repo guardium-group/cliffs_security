@@ -20,7 +20,7 @@ export const MenuItem = ({
   item,
   children,
 }: {
-  setActive: (item: string) => void;
+  setActive: (item: string | null) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
@@ -31,6 +31,10 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.button
         type="button"
+        aria-expanded={isOpen}
+        onFocus={() => setActive(item)}
+        onClick={() => setActive(item)}
+        onKeyDown={(event) => { if (event.key === "Escape") setActive(null); }}
         transition={{ duration: 0.2 }}
         className={cn(
           "flex items-center gap-1 cursor-pointer font-medium text-sm transition-colors duration-200 select-none",
@@ -82,6 +86,8 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)}
+      onKeyDown={(event) => { if (event.key === "Escape") setActive(null); }}
+      onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setActive(null); }}
       className="relative bg-none flex justify-center items-center space-x-4 px-6 py-3"
     >
       {children}

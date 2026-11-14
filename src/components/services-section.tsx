@@ -48,7 +48,7 @@ export function ServicesSection({ limit }: ServicesSectionProps) {
               What we do
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-ink leading-tight tracking-tight mb-4 text-balance">
-              Six ways we keep you covered.
+              Security for the places that matter.
             </h2>
             <p className="text-gray-500 leading-relaxed mb-8 max-w-[50ch]">
               From a single officer at a front desk to monitored cameras across a construction site, Cliffs Security matches the coverage to the risk and the budget.

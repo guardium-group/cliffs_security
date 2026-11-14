@@ -69,7 +69,7 @@ jobs:
             cat /tmp/cliffs-next.log
             exit 1
           fi
-          node --test tests/service-areas.test.mjs
+          node --test tests/*.test.mjs
 
   dependency-audit:
     name: Dependency audit (informational)

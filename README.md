@@ -20,7 +20,9 @@ Read `AGENTS.md` before changing Next.js APIs.
 | Business name, phone, email, address, service areas, social links | `src/lib/site.ts` |
 | The 6 services (cards, spotlights, detail pages, nav, footer) | `src/lib/services.ts` |
 | Service icons | `src/lib/service-icons.ts` |
-| City pages | `src/lib/service-areas.ts` |
+| Service area content | `src/lib/service-areas.ts` |
+| Industries | `src/lib/industries.ts` |
+| Open careers | `src/lib/jobs.ts` |
 | Blog posts | `src/lib/blog.ts` |
 | Contact form service options | `src/lib/validations/contact.ts` |
 | Home FAQ | `src/components/service-faq.tsx` |
@@ -44,3 +46,7 @@ The header, footer, service cards, spotlights and sitemap are all generated from
 - [ ] Submit `https://<domain>/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 - [ ] Collect real Google reviews and turn testimonials on.
 - [ ] Keyword map, titles and the renamed service URLs are documented in `docs/superpowers/specs/2026-11-10-brand-colors-mobile-design.md` (SEO section). Old URLs `/services/static-guards` and `/services/private-protection` redirect permanently in `next.config.ts`.
+
+## Maintaining job postings
+
+Review open roles regularly. In `src/lib/jobs.ts`, set `active` to `false` as soon as hiring ends, then rebuild and deploy the change promptly. Inactive roles are excluded from the careers page, sitemap, and JobPosting markup; their URLs return 404. Submit updated URLs through Google Search Console or Google's Indexing API when available. Confirm the hiring employer, job details and application email before publishing any role.

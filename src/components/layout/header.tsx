@@ -9,13 +9,14 @@ import { Menu as MenuIcon, X, Phone, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Menu, MenuItem, HoveredLink } from "@/components/ui/navbar-menu";
 import { siteConfig, serviceAreaLinks } from "@/lib/site";
-import { services as serviceData } from "@/lib/services";
+import { services as serviceData, serviceCategories } from "@/lib/services";
+import { industries } from "@/lib/industries";
 import { motion, AnimatePresence } from "framer-motion";
 
 
-const services = serviceData.map((service) => ({
-  name: service.name,
-  href: `/services/${service.slug}`,
+const services = serviceCategories.map((category) => ({
+  name: category.name,
+  items: category.slugs.map((slug) => serviceData.find((service) => service.slug === slug)).filter((service) => service !== undefined),
 }));
 
 const serviceAreas = serviceAreaLinks;
@@ -77,7 +78,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <Menu setActive={setActive}>
                 <Link
                   href="/"
@@ -97,11 +98,28 @@ export function Header() {
                         <span className="text-xs text-gray-400 font-normal mt-0.5">Full list of security services</span>
                       </div>
                     </HoveredLink>
-                    {services.map((service) => (
-                      <HoveredLink key={service.name} href={service.href}>
-                        {service.name}
-                      </HoveredLink>
-                    ))}
+                    <div className="grid grid-cols-2 gap-8 max-h-[65vh] overflow-y-auto">
+                      {services.map((category) => (
+                        <div key={category.name} className="space-y-3">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{category.name}</p>
+                          {category.items.map((service) => (
+                            <div key={service.slug}><HoveredLink href={`/services/${service.slug}`}>{service.name}</HoveredLink></div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </MenuItem>
+
+                <MenuItem setActive={setActive} active={active} item="Industries">
+                  <HoveredLink href="/industries">
+                    <div className="flex flex-col pb-3 border-b border-gray-100 mb-3">
+                      <span className="text-sm font-semibold text-primary">View all industries</span>
+                      <span className="text-xs text-gray-400 font-normal mt-0.5">Security for your environment</span>
+                    </div>
+                  </HoveredLink>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                    {industries.map((industry) => <HoveredLink key={industry.slug} href={`/industries/${industry.slug}`}>{industry.name}</HoveredLink>)}
                   </div>
                 </MenuItem>
 
@@ -143,6 +161,8 @@ export function Header() {
                   Articles
                 </Link>
 
+                <Link href="/careers" className={cn("text-sm font-medium transition-colors duration-200", isActive("/careers") ? "text-primary" : "text-gray-700 hover:text-primary")}>Careers</Link>
+
                 <Link
                   href="/contact"
                   className={cn(
@@ -156,10 +176,10 @@ export function Header() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-3">
               <a
                 href={siteConfig.phone.href}
-                className="flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200"
+                className="hidden 2xl:flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200"
               >
                 <Phone className="h-3.5 w-3.5" />
                 {siteConfig.phone.display}
@@ -175,7 +195,7 @@ export function Header() {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden p-3 -mr-2 rounded-full hover:bg-gray-100 transition-colors duration-200 active:scale-95"
+              className="xl:hidden p-3 -mr-2 rounded-full hover:bg-gray-100 transition-colors duration-200 active:scale-95"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
@@ -215,7 +235,7 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-              className="lg:hidden bg-white/98 backdrop-blur-xl border border-gray-100 shadow-xl overflow-hidden mx-5 sm:mx-6 rounded-2xl mt-1"
+              className="xl:hidden bg-white/98 backdrop-blur-xl border border-gray-100 shadow-xl max-h-[calc(100dvh-120px)] overflow-y-auto mx-5 sm:mx-6 rounded-2xl mt-1"
             >
               <div className="px-5 py-5 space-y-1">
 
@@ -238,6 +258,7 @@ export function Header() {
                 <motion.div custom={1} variants={mobileLinkVariants} initial="hidden" animate="visible">
                   <button
                     onClick={() => setMobileExpanded(mobileExpanded === "services" ? null : "services")}
+                    aria-expanded={mobileExpanded === "services"}
                     className={cn(
                       "flex items-center justify-between w-full py-3 px-3 rounded-xl text-base font-medium transition-colors duration-150",
                       isActive("/services") ? "bg-red-50 text-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary"
@@ -268,15 +289,13 @@ export function Header() {
                           >
                             View all services
                           </Link>
-                          {services.map((service) => (
-                            <Link
-                              key={service.name}
-                              href={service.href}
-                              onClick={() => { setMobileMenuOpen(false); setMobileExpanded(null); }}
-                              className="flex items-center min-h-11 py-2 px-2 rounded-lg text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors"
-                            >
-                              {service.name}
-                            </Link>
+                          {services.map((category) => (
+                            <div key={category.name}>
+                              <p className="px-2 pt-3 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">{category.name}</p>
+                              {category.items.map((service) => (
+                                <Link key={service.slug} href={`/services/${service.slug}`} onClick={() => { setMobileMenuOpen(false); setMobileExpanded(null); }} className="flex items-center min-h-11 py-2 px-2 rounded-lg text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors">{service.name}</Link>
+                              ))}
+                            </div>
                           ))}
                         </div>
                       </motion.div>
@@ -288,6 +307,7 @@ export function Header() {
                 <motion.div custom={2} variants={mobileLinkVariants} initial="hidden" animate="visible">
                   <button
                     onClick={() => setMobileExpanded(mobileExpanded === "service-areas" ? null : "service-areas")}
+                    aria-expanded={mobileExpanded === "service-areas"}
                     className={cn(
                       "flex items-center justify-between w-full py-3 px-3 rounded-xl text-base font-medium transition-colors duration-150",
                       isActive("/service-areas") ? "bg-red-50 text-primary" : "text-gray-700 hover:bg-gray-50 hover:text-primary"
@@ -337,6 +357,7 @@ export function Header() {
                 {/* Articles, About, Contact */}
                 {[
                   { label: "Articles", href: "/blog" },
+                  { label: "Careers", href: "/careers" },
                   { label: "About", href: "/about" },
                   { label: "Contact", href: "/contact" },
                 ].map((link, i) => (

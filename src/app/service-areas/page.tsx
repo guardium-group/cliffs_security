@@ -1,3 +1,4 @@
+import { buttonVariants } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
@@ -48,7 +49,7 @@ export default function ServiceAreasPage() {
             </p>
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
+              className={buttonVariants({ className: "gap-2" })}
             >
               <Phone className="h-4 w-4" />
               {siteConfig.phone.display}
